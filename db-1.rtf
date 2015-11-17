@@ -1,0 +1,204 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang16393{\fonttbl{\f0\fnil\fcharset0 Candara;}{\f1\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.10240}\viewkind4\uc1 
+\pard\sl240\slmult1\f0\fs22\lang9 Student (\ul snum\ulnone : integer, sname: string, major: string, level: string, age: integer)\par
+\f1\par
+\b create table \b0 student\b\par
+(\par
+    \b0 snum \b int  primary key NOT NULL,\par
+    \b0 sname \b varchar(10),\par
+    \b0 smajor \b varchar(2),\par
+    \b0 slevel \b varchar(2),\par
+    \b0 sage \b int\par
+);\par
+\par
+\par
+\b0\f0 Faculty (\ul fid\ulnone : integer, fname: string, deptid: integer)\par
+\b\f1\par
+create table \b0 faculty\b\par
+(\par
+    \b0 fid \b INT PRIMARY KEY,\par
+    \b0 fname \b VARCHAR(20),\par
+    \b0 deptid \b INT\par
+);\par
+\b0\par
+\f0 Class (name: string, meets at: string, room: string, d: integer)\par
+\f1\par
+\b create table \b0 class\b\par
+(\par
+    \b0 cname \b varchar(20) primary key,\par
+    \b0 metts_at \b varchar(10),\par
+    \b0 room \b varchar(10),\par
+    \b0 fid \b int,\par
+    foreign key(\b0 fid\b ) references \b0 faculty\b (\b0 fid\b )\par
+);\par
+\par
+\b0\f0 Enrolled (snum: integer, cname: string)\par
+\f1\par
+\b create table \b0 enrolled\b\par
+(\par
+    \b0 snum \b int,\par
+    \b0 cname \b varchar(20),\par
+    primary key\i (\b0 snum\b ,\b0 cname\b ),\par
+\i0     foreign key\i (\b0 snum\b\i0 ) references \b0\i student\b (\b0 snum\b\i0 ),\par
+    foreign key(\b0 cname\b ) references \b0\i class\b\i0 (\b0\i cname\b\i0 )\par
+);\par
+\par
+insert into \b0 student \b values (6,'harry','CS','Sr',21);\par
+\par
+select *from student;\par
+\fs16 ------------------------------------------------------------------------\par
+\b0 SNUM\tab SNAME\tab SMAJOR\tab SLEVEL\tab SAGE\par
+1\tab jhon\tab CS\tab Sr\tab 19\par
+2\tab smith\tab CS\tab Jr\tab 20\par
+3\tab jacob\tab CV\tab Sr\tab 20\par
+4\tab tom\tab CS\tab Jr\tab 20\par
+5\tab sid\tab CS\tab Jr\tab 20\par
+6\tab harry\tab CS\tab Sr\tab 21\par
+-------------------------------------------------------------------------\par
+\fs22\par
+\b insert into \b0 faculty \b values (\b0 11,'Harshith',1000\b );\par
+\b0\par
+\b select * from \b0 faculty \b ;\par
+\fs16 -----------------------------------------------------------------------\par
+\b0 FID\tab FNAME\tab\tab DEPTID\par
+13\tab Kumar\tab\tab 1001\par
+14\tab Shobha\tab\tab 1002\par
+11\tab Harshith\tab 1000\par
+12\tab Mohan\tab\tab 1000\par
+15\tab Shan\tab\tab 1000\par
+-------------------------------------------------------------------------\par
+\par
+\par
+\b\fs22 insert into \b0 class \b values ('\b0 class1','noon','room1',14\b );\par
+select * from \b0 class  \b ;\par
+\b0\fs16 ---------------------------------------------------------------------\par
+CNAME\tab METTS_AT\tab ROOM\tab    \tab FID\par
+class1\tab noon\tab room1\tab  \tab   14\par
+class5\tab night\tab room3\tab   \tab   15\par
+class6\tab morning\tab room2\tab   \tab   14\par
+class10\tab morning\tab room128\tab\tab   14\par
+class2\tab morning\tab room2\tab  \tab   12\par
+class3\tab morning\tab room3\tab\tab   11\par
+class4\tab evening\tab room4\tab  \tab   14\par
+class7\tab morning\tab room3  \tab   \tab   14\par
+\fs22 -------------------------------------------\par
+\par
+\b insert into \b0 enrolled \b values \b0 (5,'class5');\par
+\par
+\b select * from \b0 enrolled\b ;\par
+\fs16\par
+\trowd\trgaph30\trleft-30\trrh256\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clvertalb\cellx771\clvertalb\cellx1542 
+\pard\intbl\b0 SNUM\cell CNAME\cell\row\trowd\trgaph30\trleft-30\trrh256\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clvertalb\cellx771\clvertalb\cellx1542 
+\pard\intbl\qr 1\cell 
+\pard\intbl class1\cell\row\trowd\trgaph30\trleft-30\trrh256\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clvertalb\cellx771\clvertalb\cellx1542 
+\pard\intbl\qr 1\cell 
+\pard\intbl class5\cell\row\trowd\trgaph30\trleft-30\trrh256\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clvertalb\cellx771\clvertalb\cellx1542 
+\pard\intbl\qr 2\cell 
+\pard\intbl class1\cell\row\trowd\trgaph30\trleft-30\trrh256\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clvertalb\cellx771\clvertalb\cellx1542 
+\pard\intbl\qr 2\cell 
+\pard\intbl class5\cell\row\trowd\trgaph30\trleft-30\trrh256\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clvertalb\cellx771\clvertalb\cellx1542 
+\pard\intbl\qr 3\cell 
+\pard\intbl class2\cell\row\trowd\trgaph30\trleft-30\trrh256\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clvertalb\cellx771\clvertalb\cellx1542 
+\pard\intbl\qr 3\cell 
+\pard\intbl class3\cell\row\trowd\trgaph30\trleft-30\trrh256\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clvertalb\cellx771\clvertalb\cellx1542 
+\pard\intbl\qr 3\cell 
+\pard\intbl class5\cell\row\trowd\trgaph30\trleft-30\trrh256\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clvertalb\cellx771\clvertalb\cellx1542 
+\pard\intbl\qr 4\cell 
+\pard\intbl class3\cell\row\trowd\trgaph30\trleft-30\trrh256\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clvertalb\cellx771\clvertalb\cellx1542 
+\pard\intbl\qr 4\cell 
+\pard\intbl class5\cell\row\trowd\trgaph30\trleft-30\trrh256\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clvertalb\cellx771\clvertalb\cellx1542 
+\pard\intbl\qr 5\cell 
+\pard\intbl class4\cell\row\trowd\trgaph30\trleft-30\trrh256\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clvertalb\cellx771\clvertalb\cellx1542 
+\pard\intbl\qr 5\cell 
+\pard\intbl class5\cell\row\trowd\trgaph30\trleft-30\trrh256\trpaddl30\trpaddr30\trpaddfl3\trpaddfr3
+\clvertalb\cellx771\clvertalb\cellx1542 
+\pard\intbl\qr 6\cell 
+\pard\intbl class5\cell\row 
+\pard\sl240\slmult1 -----------------------------------------------------------\par
+\par
+\ul\b\f0\fs24 Query 2: Find the names of all classes that either meet in room128 or have 5 or more students enrolled.\par
+\ulnone\b0\f1\fs16\par
+\par
+\fs24 select distinct \i cname \i0 from \b\i class\b0\i0\par
+where room='room128'\par
+\b or\b0\par
+\i cname \b\i0 in \b0 (select e.cname from \i enrolled \b\i0 e \b0 group by \i e.cname \b\i0 having count(*)>=5\b0 );\par
+\par
+-------------------------------------------------------\par
+\b\fs20 CNAME\fs24\par
+\b0 class5\par
+class10\par
+\fs16 2 rows returned in 0.00 second\par
+\fs24 --------------------------------------------------------\par
+\par
+\par
+\ul\b Query 1: Find the names of all juniors (level=Jr) who are enrolled for class taught by professor Harshith.\par
+\fs20\par
+\b0\par
+\ulnone\fs24 select distinct \i s.sname\par
+\i0 from student \b s\b0 ,class \b c\b0 ,faculty \b f\b0 ,enrolled \b e\b0  \i where \b\i0\par
+       \b0 s.snum=e.snum           and\par
+       e.cname=c.cname       and\par
+       s.slevel='\i jr\i0 '                  and\par
+       f.fname='\i Harshith\i0 '      and\par
+       f.fid=c.fid;\par
+\par
+-------------------------------\par
+no data found\tab\tab\par
+--------------------------------\par
+\par
+\ul\b Query 3: Find the names of all students who are enrolled in two classes that meet at same time.\par
+\fs20\par
+\ulnone\b0\fs24\par
+select distinct s.sname from \i student \b\i0 s\b0\par
+ where s.snum \b in \par
+\b0 (\par
+select \fs28 e1.snum \b\fs24 from \b0\i enrolled \b\i0 e1\b0 ,\i enrolled \b\i0 e2\b0 ,\i class \b\i0 c1\b0 ,\i class \b\i0 c2\b0  \b where\par
+\b0 e1.snum=e2.snum  \tab\tab and\par
+e1.cname<>e2.cname \tab and\par
+e1.cname=c1.cname  \tab\tab and\par
+e2.cname=c2.cname  \tab\tab and\par
+c1.metts_at=c2.metts_at \par
+);\par
+\par
+\b\par
+\ul Query 4: Find the names of faculty members who teach in every room in which some class is taught.\par
+\b0\fs28\par
+\ulnone\fs24 select f.fname,f.fid from faculty f\par
+where \par
+f.fid in \par
+(select fid from class group by fid having count(*)=(select count(distinct room) from class) );\par
+\fs20\par
+-----------------\par
+FNAME\tab FID\par
+Shobha\tab 14\par
+------------------\par
+\ul\b\fs24\par
+Query 5: Find the names of the faculty members for whome the combined enrollment of the classes that they teach is less then five.\par
+\ulnone\b0\par
+select distinct f.fname from faculty f\tab\tab\tab\tab\tab\tab\tab\fs16 (P)\par
+\fs24 where 5>(select count (e.snum) from class c, enrolled e\par
+where c.cname=e.cname and c.fid=f.fid);\par
+--------\par
+\fs20 FNAME\par
+Harshith\par
+Shobha\par
+Kumar\par
+Mohan\par
+-----------\par
+\par
+\fs24\par
+}
+ 

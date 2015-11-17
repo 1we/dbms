@@ -1,0 +1,215 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang16393{\fonttbl{\f0\fswiss\fprq2\fcharset0 Calibri;}{\f1\fnil\fcharset0 Calibri;}{\f2\fnil\fcharset0 Verdana;}}
+{\*\generator Riched20 10.0.10240}\viewkind4\uc1 
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\b\f0\fs16\lang1033\tab 4.\b0 The following tables are maintained by a book dealer.\b\par
+
+\pard\hyphpar0\widctlpar\sl480\slmult1 AUTHOR\tab\tab\b0\fs20 (\ul\b author_id:\ulnone\b0 int, name:string, city:string, country:string)\par
+\b\fs16 PUBLISHER\tab\b0\fs20 (\ul\b publisher_id:\ulnone\b0 int, name:string, city:string,country:string)\par
+\b\fs16 CATALOG\tab\tab\b0 (\ul\b book_id:\ulnone\b0 int, title:string, author_id:int, publisher_id:int,category_id:int, year:int, price:int)\par
+\b CATEGORY\tab\b0\fs20 (\ul\b category_id:\ulnone\b0 int, description:string)\par
+\b\fs16 ORDER_DETAILS\tab\b0\fs20 (\ul\b order_no:\ulnone\b0 int, \ul\b book_id:\ulnone\b0 int, quantity:int)\par
+
+\pard\hyphpar0\widctlpar\sl240\slmult1\fs24 CREATE  TABLE   AUTHOR\par
+(\par
+ author_id  \tab int,\par
+ name      \tab varchar(20),\par
+ city      \tab varchar(20),\par
+ country   \tab varchar(20),\par
+ PRIMARY   KEY(author_id)\par
+);\par
+
+\pard\sa200\sl276\slmult1\f1\fs22\lang9\par
+
+\pard\sl240\slmult1\fs24 CREATE  TABLE   PUBLISHER\par
+(\par
+ publisher_id   int,\par
+ name     \tab varchar(20),\par
+ city     \tab\tab varchar(20),\par
+ country  \tab varchar(20),\par
+ PRIMARY   KEY(publisher_id)\par
+);\par
+\par
+CREATE  TABLE   CATEGORY\par
+(\par
+ category_id  int,\par
+ description  varchar(20),\par
+ PRIMARY KEY(category_id)\par
+);\par
+\par
+CREATE  TABLE   CATALOG\par
+(\par
+ book_id          int,\par
+ title          \tab varchar(20),\par
+ author_id       int,\par
+ publisher_id   int,\par
+ category_id    int,\par
+ year           \tab int,\par
+ price          \tab int,\par
+ PRIMARY   KEY(book_id),\par
+ FOREIGN   KEY(author_id)     references  AUTHOR(author_id),\par
+ FOREIGN   KEY(publisher_id) references  PUBLISHER(publisher_id),\par
+ FOREIGN   KEY(category_id)  references  CATEGORY(category_id)\par
+);\par
+\par
+CREATE  TABLE   ORDER_DETAILS\par
+(\par
+ order_no  int,\par
+ book_id   int,\par
+ quantity  int,\par
+ PRIMARY   KEY(order_no,  book_id),\par
+ FOREIGN   KEY(book_id) references  CATALOG(book_id)\par
+);\par
+\par
+INSERT    INTO   \i AUTHOR   \i0\tab VALUES(&author_id,'&name','&city','&country');\par
+\par
+INSERT    INTO   \i PUBLISHER  \i0\tab VALUES(&publisher_id,'&name','&city','&country');\par
+\par
+INSERT    INTO   \i CATEGORY  \i0\tab VALUES(&category_id,'&description');\par
+\par
+INSERT    INTO   \i CATALOG\i0  \tab VALUES\par
+\fs20\tab    (&book_id,'&title',&author_id, &publisher_id &category_id,&year,&price);\par
+\fs24\par
+INSERT    INTO   \i ORDER_DETAILS  \i0 VALUES(&order_no,&book_id,'&quantity');\par
+\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\f0\fs22\lang1033 SQL>\b SELECT   *   FROM   PUBLISHER;\b0\par
+
+\pard\hyphpar0\widctlpar\sl240\slmult1\fs16 Publisher_ID \tab\tab NAME                 CITY                 \tab COUNTRY\par
+---- ----  ---------------- -------------------- -------------------------------------------\par
+ 200         \tab\tab pearson             newyork              \tab        usaclose\par
+ 201         \tab\tab mcgraw             delhi                \tab        india\par
+ 202         \tab\tab oxford               washington                 usa\par
+ 203         \tab\tab willey                 london                        england\par
+ 204         \tab\tab prism                 blore                            india\par
+
+\pard\hyphpar0\widctlpar\sa200\sl240\slmult1  205         \tab\tab shiva                  tmk                              india\fs22\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1 SQL>\b  SELECT   *   FROM   CATEGORY;\b0\fs16\par
+
+\pard\hyphpar0\widctlpar\sl240\slmult1   Category_ID \tab\tab DESCRIPTION\par
+------ ----------------------------------------------\par
+   300        \tab\tab technical\par
+   301        \tab\tab non-technical\par
+   302        \tab\tab science\par
+   303        \tab\tab inventions\par
+   304        \tab\tab technology\par
+   305        \tab\tab research\par
+\fs22\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1 SQL>\b SELECT   *   FROM   CATALOG;\b0\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1\fs16  Book_ID \tab TITLE      Author_ID  \tab Publisher_ID   \tab Category_ID    \tab    YEAR      \tab PRICE\par
+----------------------------------------------------------------------------------------------------------------------------------------------------\par
+   400   \tab\tab dbms          100        \tab       200           300           \tab 2001       \tab 1200\par
+   401   \tab\tab se                101        \tab       201            300            \tab 2005        \tab 856\par
+   402   \tab\tab c                  102        \tab       204            304            \tab 1999        \tab 986\par
+   403   \tab\tab c++             103          \tab       204             304            \tab 2002       \tab 1856\par
+   404   \tab\tab power        104        \tab       205             300            \tab 2003        \tab 896\par
+   405   \tab\tab os               105        \tab       203              305            \tab 2006        \tab 789\par
+   406   \tab\tab dsc             102        \tab       204             300            \tab 2001        \tab 698\par
+   407   \tab\tab c#               100        \tab       201            305            \tab 2011       \tab 1265\par
+   408   \tab\tab cg               103        \tab       204            303            \tab 2009        \tab 968\par
+\fs22\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1 SQL>\b SELECT   *   FROM   ORDER_DETAILS\b0 ; \par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1\fs16  Order_NO   \tab Book_ID    \tab Quantity\par
+------ ---------- ---------------------------------------\par
+   500        \tab\tab 400         \tab     10\par
+   501       \tab  \tab 401         \tab     17\par
+   502        \tab\tab 407          \tab     6\par
+   503        \tab\tab 400          \tab     8\par
+   504        \tab\tab 403          \tab     8\par
+   500        \tab\tab 401         \tab     12\par
+   501        \tab\tab 402         \tab     17\par
+   505        \tab\tab 405         \tab     16\par
+\fs20\par
+1)\b Give the details of the authors who have 2 or more books  in the catalog and the price of the books\b0\par
+\b   Is\b0  \b greater than the  average price of the books in the catalog and the year of publication is after 2000.\fs22\par
+\b0\fs16\par
+\fs20 SELECT   *   FROM  AUTHOR\par
+WHERE    author_id   IN \par
+(\par
+SELECT   author_id FROM  CATALOG\par
+WHERE    year > 2000\par
+GROUP BY   author_id\par
+HAVING     COUNT(*) > 1  AND  SUM(price)  > (SELECT  AVG(price)  FROM    CATALOG)\par
+);\par
+\par
+\par
+\fs16 AUTHOR_ID\tab NAME\tab CITY\tab COUNTRY\par
+100\tab\tab navathe\tab landon\tab uk\par
+103\tab\tab kottur\tab blr\tab india\par
+
+\pard\sl240\slmult1\f1\lang9\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\f0\fs22\lang1033 2)\b Find the author of the book which has maximum sales\par
+
+\pard\hyphpar0\widctlpar\sl240\slmult1\b0\fs24 SELECT   *  FROM  AUTHOR\par
+WHERE   author_id  IN\par
+(\par
+SELECT  author_id  FROM CATALOG\par
+WHERE  book_id  IN \par
+(\par
+SELECT   book_id FROM   ORDER_DETAILS\par
+GROUP  BY   book_id\par
+HAVING   SUM(quantity) = (SELECT  MAX(SUM(quantity)) FROM ORDER_DETAILS GROUP BY  book_id))\par
+);\par
+
+\pard\sl240\slmult1\f1\lang9\par
+\fs16 AUTHOR_ID\tab NAME\tab CITY\tab COUNTRY\par
+101\tab\tab somavilla\tab landon\tab uk\par
+\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\f0\fs22\lang1033 3)\b Demonstrate how you increase the price of books published  by a specific publisher by 10%.\b0\par
+
+\pard\sl240\slmult1\f1\fs24\lang9 UPDATE CATALOG SET  price = price*1.1 WHERE  Publisher_id  IN \par
+( SELECT  Publisher_id FROM  PUBLISHER WHERE   name='shiva');    \par
+\fs16\par
+1 row(s) updated.\par
+\par
+\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1\f2\lang1033 ------------------------------------------------------------------------------------------------------------------------\par
+\b     EXTRA QUERIES\b0\par
+------------------------------------------------------------------------------------------------------------------------\par
+1)\b Find the orders no which included all the books of a specific author\b0\par
+\b   \b0\par
+SELECT  order_no\par
+  FROM  ORDER_DETAILS\par
+  WHERE  book_Id  IN (SELECT  book_Id\par
+                \tab             FROM CATALOG   C,  AUTHOR   A\par
+                \tab             WHERE  C.Author_Id = A.Author_Id\par
+                      \tab                             AND   A.Author_Id=102);\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\b\par
+\b0 2)\b Find the publisher id who have not published any books\b0\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1   SELECT  name\par
+  FROM   PUBLISHER\par
+  WHERE  Publisher_Id  NOT  IN(SELECT  Publisher_Id  FROM  CATALOG);\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\par
+3)\b Find   the  author name and publisher name  who live in the  same  city\b0\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1     SELECT   Distinct   A.name,   P.name\par
+    FROM  AUTHOR   A, PUBLISHER   P, CATALOG   C\par
+    WHERE   A.Author_Id = C.Author_Id\par
+                    AND   P.Publisher_Id  =  C.Publisher_Id\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1                     AND   A.city = P.city;\par
+\b\par
+\b0 4)\b Find the publisher name who have published at least  4  books\b0\fs20\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1     SELECT   P.name\par
+     FROM  PUBLISHER  P,  CATALOG  C\par
+    WHERE   P.Publisher_Id  =  C.Publisher_Id\par
+    GROUP BY   P.name\par
+    HAVING    COUNT(*)>=4;\par
+\b\f0\fs22\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\fs16 note:dump username:pro3-27***\fs22\par
+
+\pard\sl240\slmult1\b0\f1\fs16\lang9\par
+\par
+}
+ 

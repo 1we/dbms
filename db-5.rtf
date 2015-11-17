@@ -1,0 +1,221 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang16393{\fonttbl{\f0\fswiss\fprq2\fcharset0 Calibri;}{\f1\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.10240}\viewkind4\uc1 
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\b\f0\fs40\lang1033 5\b0\fs22  .Consider the following database for a banking enterprise\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1\b BRANCH\tab\b0 (\ul\b branch_name\ulnone\b0 :string, branch_city:string, assets:real)\par
+\b ACCOUNT\tab\b0 (\ul\b accno:\ulnone\b0 int, branch_name:string, balance:real)\par
+\b DEPOSITOR\tab\b0 (\ul\b customer_name\ulnone\b0 :string, \ul\b accno\ulnone\b0 :int)\par
+\b CUSTOMER\tab\b0 (\ul\b customer_name:\ulnone\b0 string, customer_street:string,customer_city:string)\par
+\b LOAN\tab\tab\b0 (\ul\b Loan_number\ulnone\b0 :int, branch_name:string, amount:real)\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\b BORROWER\tab\b0 (\b customer_name:\b0 string, \ul\b Loan_number:\ulnone\b0 int)\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1\b\par
+CREATE TABLE BRANCH\b0\par
+(branch_name  varchar(20),\par
+ branch_city  varchar(20),\par
+ assets  real,\par
+ \b PRIMARY   KEY\b0 (branch_name));\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1\b CREATE TABLE CUSTOMER\b0\par
+(customer_name  varchar(20),\par
+ customer_street  varchar(20),\par
+ customer_city  varchar(20),\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\b  PRIMARY   KEY\b0 (customer_name));\par
+\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1\b CREATE TABLE ACCOUNT\b0\par
+(accno  int,\par
+ branch_name  varchar(20),\par
+ balance  real,\par
+ \b PRIMARY   KEY\b0 (accno),\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1  \b FOREIGN   KEY\b0 (branch_name) references  \b BRANCH\b0 (branch_name));\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1\par
+\b CREATE TABLE DEPOSITOR\b0\par
+(customer_name  varchar(20),\par
+ Accno  int, \par
+ \b PRIMARY   KEY\b0 (customer_name,  accno),\par
+ \b FOREIGN   KEY\b0 (customer_name) references  \b CUSTOMER\b0 (customer_name),\par
+ \b FOREIGN   KEY\b0 (accno) references  \b ACCOUNT\b0 (accno) \b\fs24 On  Delete  Cascade\b0\fs22 );\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1\b CREATE TABLE LOAN\b0\par
+(loan_number   int, \par
+ branch_name   varchar(20),\par
+ amount   real,\par
+ \b PRIMARY   KEY\b0 (loan_number),\par
+ \b FOREIGN   KEY\b0 (branch_name) references  \b BRANCH\b0 (branch_name));\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1\b CREATE TABLE BORROWER\b0\par
+(customer_name   varchar(20),\par
+ Loan_number   int,\par
+ \b PRIMARY   KEY\b0 (customer_name,  Loan_number),\par
+ \b FOREIGN   KEY\b0 (customer_name) references  \b CUSTOMER\b0 (customer_name),\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1  \b FOREIGN   KEY\b0 (Loan_number) references   \b LOAN\b0 (Loan_number));\par
+\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1  \b INSERT    INTO   BRANCH  VALUES \b0 ('&branch_name','&branch_city',&assets);   \par
+\b INSERT    INTO   CUSTOMER  VALUES \b0 ('&customer_name','&customer_street','&customer_city');\par
+\b INSERT    INTO   ACCOUNT  VALUES \b0 (&accno, '&branch_name', &balance);\par
+\b INSERT    INTO   DEPOSITOR  VALUES \b0 ('&customer_name', &accno);\par
+ \b INSERT    INTO   LOAN  VALUES \b0 (&loan_number, '&branch_name', &amount);\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\b INSERT    INTO   BORROWER  VALUES \b0 ('&customer_name', &loan_number);\par
+SQL>\b  SELECT   *   FROM   BRANCH;\b0\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1 BRANCH_NAME         \tab BRANCH_CITY              ASSETS\par
+-------------------- -------------------- --------------------------------------\par
+rt nagar             \tab\tab blore                  \tab            12000000\par
+jayanagar            \tab tmk                    \tab            56982153\par
+bh road              \tab\tab tmk                    \tab            62543146\par
+mg road              \tab\tab tmk                                 1234658\par
+gandhi nagar         \tab blore                   \tab            56862132\par
+vijaya nagar         \tab mysore                          56987500\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\par
+SQL>\b  SELECT   *   FROM   CUSTOMER;\b0\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1 CUSTOMER_NAME      CUSTOMER_STREET       CUSTOMER_CITY\par
+-------------------- -------------------- ----------------------------------------------\par
+kiran                \tab\tab 3\super rd\nosupersub  cross              \tab\tab blore\par
+vijay                \tab\tab  4\super th\nosupersub  main                  \tab blore\par
+sham                 \tab\tab 8\super th\nosupersub  cross                   \tab tmk\par
+dinesh               \tab\tab  9\super th\nosupersub  main                \tab mysore\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1 bham                 \tab\tab  2\super nd\nosupersub  cross                  \tab tmk\par
+SQL>\b SELECT   *   FROM   ACCOUNT;\b0\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1\fs16  ACCNO  \tab BRANCH_NAME             BALANCE\par
+------- -------------------- -----------------------------------------\par
+  100   \tab\tab rt nagar                 \tab 123564\par
+  101   \tab\tab jayanagar                 \tab 25631\par
+  102   \tab\tab bh road                   \tab 25423\par
+  103   \tab\tab mg road                   \tab 32366\par
+  104   \tab\tab gandhi nagar              \tab 33265\par
+  106   \tab\tab rt nagar                  \tab 26359\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\par
+\fs22 SQL>\b SELECT   *   FROM   DEPOSITOR;\b0\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1\fs16 CUSTOMER_NAME              ACCNO\par
+-------------------- -------------------------\par
+kiran                       \tab        100\par
+sham                        \tab        101\par
+sham                        \tab        102\par
+sham                        \tab        103\par
+vijay                       \tab        104\par
+kiran                       \tab        106\par
+\fs22\par
+SQL>\b SELECT   *   FROM   LOAN;\b0\par
+\fs16 LOAN_NUMBER \tab BRANCH_NAME           AMOUNT\par
+------ -------------------- ------------------------------------------------------\par
+   200      \tab\tab rt nagar              \tab\tab 15458\par
+   201      \tab\tab jayanagar             \tab 10000\par
+   202      \tab\tab gandhi nagar          \tab 23559\par
+   203      \tab\tab mg road               \tab 25000\par
+   204      \tab\tab vijaya nagar          \tab 55000\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\fs22\par
+SQL>\b SELECT   *   FROM   BORROWER;\b0\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1\fs16 CUSTOMER_NAME           LOAN_NUMBER\par
+-------------------- -----------------------------------\par
+kiran                      \tab\tab 200\par
+kiran                       \tab\tab 201\par
+sham                        \tab\tab 202\par
+vijay                       \tab\tab 203\par
+dinesh                      \tab\tab 204\par
+\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\fs22 1)\b Find   all the  customers  who   have   at least   two  accounts  at  the  main  branch\b0\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1      SELECT   D.customer_name\par
+     FROM  DEPOSITOR   D, ACCOUNT   A  \par
+     WHERE   A.accno = D.accno      AND    A.branch_name= \fs24 'rt nagar'\fs22\par
+     GROUP  BY  D.customer_name\par
+     HAVING    COUNT(*) >= 2;\par
+\b\par
+\b0 2)\b Find all the customers who have an account at all the branches located in a specific city.\par
+\b0\par
+\b     \b0 SELECT  DISTINCT  D.customer_name\par
+    FROM  DEPOSITOR  D\par
+    WHERE   NOT EXISTS((SELECT  branch_name\par
+                                             FROM  BRANCH\par
+                                            WHERE   branch_city=\fs24 'tmk'\fs22 )\par
+\tab\tab\tab             \fs32 MINUS\fs22\par
+                     \tab               (SELECT  A.branch_name\par
+                      \tab                FROM  ACCOUNT  A, DEPOSITOR  K\par
+                      \tab                WHERE   A.accno = K.accno\par
+                                    \tab                 AND   D.customer_name=K.customer_name));\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\b\par
+\b0 3)\b Demonstrate how you delete all account tuples at every branch  located in a specific city\b0\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1   DELETE   FROM   ACCOUNT\par
+  WHERE    branch_name  IN (SELECT branch_name\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1                                                       FROM BRANCH  WHERE   branch_city = 'mysore');\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1 ----------------------------------------------------------------------------------------------------------------------------\par
+    \b\fs28 EXTRA QUERIES\b0\fs22\par
+----------------------------------------------------------------------------------------------------------------------------\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\par
+1)\b Find all the customers who have both account and loan\b0\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1     SELECT   D.customer_name\par
+    FROM   DEPOSITOR   D,  ACCOUNT   A\par
+    WHERE   A.accno =  D.accno\par
+\fs32        INTERSECT\fs22\par
+   SELECT   B.customer_name\par
+    FROM  LOAN L, BORROWER B\par
+    WHERE   L.Loan_number = B.Loan_number;\par
+\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1 2)\b Find all the customers who have both account and loan at specific branch\b0\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1     SELECT   D.customer_name\par
+    FROM DEPOSITOR  D,  ACCOUNT   A\par
+    WHERE   A.accno = D.accno\par
+                  AND  A.branch_name=\fs24 'rt nagar'\fs22\par
+\tab\fs32      INTERSECT\fs22\par
+   SELECT   B.customer_name\par
+   FROM  LOAN  L, BORROWER  B\par
+   WHERE   L.Loan_number = B.Loan_number\par
+                   AND    L.branch_name=\fs24 'rt nagar'\fs22 ;\par
+
+\pard\hyphpar0\widctlpar\sa200\sl276\slmult1\b\par
+\b0 3)\b Find  the bank  that has having  highest   average  balance\b0\par
+
+\pard\hyphpar0\widctlpar\sl276\slmult1     SELECT  branch_name\par
+    FROM  ACCOUNT\par
+    GROUP BY   branch_name\par
+    HAVING    AVG(balance)>=ALL(SELECT  AVG(balance)\par
+                                                         FROM ACCOUNT\par
+                                                         GROUP BY  branch_name);\par
+\b\par
+\fs28      /* one more way, we can do the 6th problem is as follows : */\b0\fs22\par
+\b\fs28\par
+\b0\fs22     SELECT   branch_name\par
+    FROM    ACCOUNT\par
+    Group  by  branch_name\par
+    HAVING    AVG(balance)=(SELECT  MAX(AVG(balance))\par
+                                                    FROM ACCOUNT\par
+                                                    GROUP BY  branch_name);\par
+\b\par
+\par
+\par
+\par
+
+\pard\sa200\sl276\slmult1\b0\f1\lang9\par
+}
+ 
